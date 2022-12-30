@@ -47,14 +47,14 @@ public class RandomLanguageModClient implements ClientModInitializer {
                 languageManager=minecraftClient.getLanguageManager();
                 allLanguages=languageManager.getAllLanguages().toArray(new LanguageDefinition[0]);
                 language=allLanguages[random.nextInt(allLanguages.length)];
-                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: "+language.getName()+" ("+language.getRegion()+")"));
+                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: "+language.getName()+" ("+language.getRegion()+")"),true);
                 languageManager.setLanguage(language);
                 languageManager.reload(minecraftClient.getResourceManager());
             }
             if(returnToEnglishKeybind.wasPressed()){
                 languageManager=minecraftClient.getLanguageManager();
                 language=languageManager.getLanguage("en_us");
-                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: "+language.getName()+" ("+language.getRegion()+")"));
+                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: "+language.getName()+" ("+language.getRegion()+")"),true);
                 languageManager.setLanguage(language);
                 languageManager.reload(minecraftClient.getResourceManager());
             }
