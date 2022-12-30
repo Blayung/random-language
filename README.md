@@ -1,3 +1,4 @@
+<img src="https://i.imgur.com/Ol1Tcf8.png" width="159" height="53"></img>
 # Random Language Mod
 
 ## What is this mod?
@@ -7,4 +8,4 @@ This minecraft fabric mod allows you to randomize your game's language with just
 ## How to compile this mod?
 1. Clone the repo: `git clone https://github.com/Blayung/random-language-mod.git; cd random-language-mod`
 2. Compile the mod: `./gradlew build`
-3. Now the mod jar file should be here: `build/libs/random-language-mod-1.0.0.jar`
+3. Now the mod jar file should be here: `build/libs/random-language-mod-1.0.1.jar`
