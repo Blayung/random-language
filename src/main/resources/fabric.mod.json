@@ -8,9 +8,13 @@
   "authors": [
     "Blay"
   ],
-
-  "license": "GPL-3.0-only",
+  "contact":{
+    "email":"gpewojan1@gmail.com",
+    "issues":"https://github.com/Blayung/random-language-mod/issues",
+    "sources":"https://github.com/Blayung/random-language-mod"
+  },
   "icon": "assets/random-language-mod/icon.png",
+  "license": "GPL-3.0-only",
 
   "environment": "*",
   "entrypoints": {
@@ -28,6 +32,5 @@
     "fabric": "*",
     "minecraft": "~1.19",
     "java": ">=17"
-  },
-  "suggests": {}
+  }
 }
