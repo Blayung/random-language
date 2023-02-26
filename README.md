@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/Ol1Tcf8.png" width="159" height="53"></img>
+![fabric-api](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/fabric-api_vector.svg)
 # Random Language Mod
 
 ## What is this mod?
