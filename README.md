@@ -1,4 +1,4 @@
-![fabric-api](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/fabric-api_vector.svg)
+[![fabric-api](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/fabric-api_vector.svg)](https://modrinth.com/mod/fabric-api) [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/random-language-mod)
 # Random Language Mod
 
 ## What is this mod?
@@ -13,3 +13,4 @@ You can configure that mod by editing the `.minecraft/config/random-language-mod
 1. Clone the repo: `git clone https://github.com/Blayung/random-language-mod.git; cd random-language-mod`
 2. Compile the mod: `./gradlew build`
 3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.1.2.jar`
+
