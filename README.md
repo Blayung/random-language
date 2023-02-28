@@ -12,5 +12,4 @@ You can configure that mod by editing the `.minecraft/config/random-language-mod
 ## How to compile this mod?
 1. Clone the repo: `git clone https://github.com/Blayung/random-language-mod.git; cd random-language-mod`
 2. Compile the mod: `./gradlew build`
-3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.1.2.jar`
-
+3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.1.3.jar`
