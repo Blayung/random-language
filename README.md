@@ -9,6 +9,9 @@ This minecraft fabric mod allows you to randomize your game's language with just
 ## Configuration
 You can configure that mod by editing the `.minecraft/config/random-language-mod.properties` file, that is generated automatically after you launch the game with the mod for the first time.
 
+## Downloads
+You can download this mod on modrinth. [https://modrinth.com/mod/random-language-mod](https://modrinth.com/mod/random-language-mod)
+
 ## How to compile this mod?
 1. Clone the repo: `git clone https://github.com/Blayung/random-language-mod.git; cd random-language-mod`
 2. Compile the mod: `./gradlew build`
