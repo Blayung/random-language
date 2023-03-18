@@ -14,14 +14,14 @@ import net.minecraft.client.resource.language.LanguageDefinition;
 
 import com.blay.randomlanguagemod.SimpleConfig;
 
-import java.lang.Thread;
 import java.util.Random;
+import java.util.Map;
 
 class setSimpleConfigThread extends Thread {
     public void run() {
-        while(true){
-            if(MinecraftClient.getInstance().getLanguageManager()!=null){
-                if(MinecraftClient.getInstance().getLanguageManager().getAllLanguages().toArray(new LanguageDefinition[0]).length>1){
+        while(true) {
+            if(MinecraftClient.getInstance().getLanguageManager() != null){
+                if(MinecraftClient.getInstance().getLanguageManager().getAllLanguages().size() > 1){
                     RandomLanguageModClient.getInstance().setSimpleConfig();
                     break;
                 }
@@ -34,38 +34,41 @@ public class RandomLanguageModClient implements ClientModInitializer {
     private static RandomLanguageModClient instance;
 
     private MinecraftClient minecraftClient;
-    private LanguageManager languageManager;
-    private LanguageDefinition language;
-    private LanguageDefinition[] allLanguages;
-    private String allLanguagesString;
-    private SimpleConfig simpleConfig;
     private Random random;
+    private SimpleConfig simpleConfig;
+    private String nativeLanguage;
     public KeyBinding randomLanguageKeybind;
     public KeyBinding returnToNativeKeybind;
+    private LanguageManager languageManager;
+    private Object[] allLanguages;
+    private String allLanguagesString;
+    private int choosenLanguage;
+    private LanguageDefinition language;
 
     private String defaultConfigProvider(String filename) {
         allLanguagesString="";
-        for(LanguageDefinition language:minecraftClient.getLanguageManager().getAllLanguages().toArray(new LanguageDefinition[0])){
-            allLanguagesString=allLanguagesString+"\n# "+language.getCode();
+        for(String languageCode : minecraftClient.getLanguageManager().getAllLanguages().keySet()){
+            allLanguagesString = allLanguagesString + "\n# " + languageCode;
         }
-        return "#  Random Language Mod config\n# ============================\nnative-language=en_us\n# In above option you can choose from:"+allLanguagesString;
+        return "#  Random Language Mod config\n# ============================\nnative-language=en_us\n# In above option you can choose from:" + allLanguagesString;
     }
 
-    public void setSimpleConfig(){
+    public void setSimpleConfig() {
         simpleConfig = SimpleConfig.of("random-language-mod").provider(this::defaultConfigProvider).request();
+        nativeLanguage = simpleConfig.getOrDefault("native-language","en_us");
     }
 
-    public static RandomLanguageModClient getInstance(){
+    public static RandomLanguageModClient getInstance() {
         return instance;
     }
 
     @Override
     public void onInitializeClient() {
-        instance=this;
+        instance = this;
 
         random = new Random();
 
-        minecraftClient=MinecraftClient.getInstance();
+        minecraftClient = MinecraftClient.getInstance();
 
         randomLanguageKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "random-language-mod.key.random",
@@ -84,18 +87,19 @@ public class RandomLanguageModClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(randomLanguageKeybind.wasPressed()) {
-                languageManager=minecraftClient.getLanguageManager();
-                allLanguages=languageManager.getAllLanguages().toArray(new LanguageDefinition[0]);
-                language=allLanguages[random.nextInt(allLanguages.length)];
-                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: "+language.getName()+" ("+language.getRegion()+")"),true);
-                languageManager.setLanguage(language);
+                languageManager = minecraftClient.getLanguageManager();
+                allLanguages = languageManager.getAllLanguages().entrySet().toArray();
+                choosenLanguage = random.nextInt(allLanguages.length);
+                language = ((Map.Entry<String,LanguageDefinition>) allLanguages[choosenLanguage]).getValue();
+                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: " + language.name() + " (" + language.region() + ")"),true);
+                languageManager.setLanguage(((Map.Entry<String,LanguageDefinition>) allLanguages[choosenLanguage]).getKey());
                 languageManager.reload(minecraftClient.getResourceManager());
             }
-            if(returnToNativeKeybind.wasPressed()){
-                languageManager=minecraftClient.getLanguageManager();
-                language=languageManager.getLanguage(simpleConfig.getOrDefault("native-language","en_us"));
-                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: "+language.getName()+" ("+language.getRegion()+")"),true);
-                languageManager.setLanguage(language);
+            if(returnToNativeKeybind.wasPressed()) {
+                languageManager = minecraftClient.getLanguageManager();
+                language = languageManager.getLanguage(nativeLanguage);
+                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: " + language.name() + " (" + language.region() + ")"),true);
+                languageManager.setLanguage(nativeLanguage);
                 languageManager.reload(minecraftClient.getResourceManager());
             }
         });
