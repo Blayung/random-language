@@ -1,42 +1,39 @@
 package com.blay.randomlanguagemod;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.api.ClientModInitializer;
-
-import net.minecraft.client.MinecraftClient;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+
+import com.mojang.logging.LogUtils;
+
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
-import org.lwjgl.glfw.GLFW;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.resource.language.LanguageDefinition;
+import net.minecraft.util.crash.CrashReport;
 
-import com.blay.randomlanguagemod.SimpleConfig;
+import org.lwjgl.glfw.GLFW;
+import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileReader;
 import java.util.Random;
 import java.util.Map;
 
-class setSimpleConfigThread extends Thread {
-    public void run() {
-        while(true) {
-            if(MinecraftClient.getInstance().getLanguageManager() != null){
-                if(MinecraftClient.getInstance().getLanguageManager().getAllLanguages().size() > 1){
-                    RandomLanguageModClient.getInstance().setSimpleConfig();
-                    break;
-                }
-            }
-        }
-    }
-}
-
 public class RandomLanguageModClient implements ClientModInitializer {
     private static RandomLanguageModClient instance;
+    public static RandomLanguageModClient getInstance() {
+        return instance;
+    }
 
     private MinecraftClient minecraftClient;
     private Random random;
-    private SimpleConfig simpleConfig;
-    private String nativeLanguage;
+    private Gson gson;
+    public CrashReport crashReport;
     public KeyBinding randomLanguageKeybind;
     public KeyBinding returnToNativeKeybind;
     private LanguageManager languageManager;
@@ -44,22 +41,58 @@ public class RandomLanguageModClient implements ClientModInitializer {
     private String allLanguagesString;
     private int choosenLanguage;
     private LanguageDefinition language;
+    private File configFile;
+    private FileWriter fileWriter;
+    private FileReader fileReader;
+    private JsonConfig config;
 
-    private String defaultConfigProvider(String filename) {
-        allLanguagesString="";
-        for(String languageCode : minecraftClient.getLanguageManager().getAllLanguages().keySet()){
-            allLanguagesString = allLanguagesString + "\n# " + languageCode;
+    private class JsonConfig{ // My json config structure
+        public String native_language="en_us";
+    }
+
+    private class SetConfigThread extends Thread { // Sets and reads the config only after minecraft resource manager has initialized. 
+        public void run() {
+            while(true) {
+                if((MinecraftClient.getInstance().getLanguageManager() != null) && (MinecraftClient.getInstance().getLanguageManager().getAllLanguages().size() > 1)){
+                    RandomLanguageModClient.getInstance().setConfig();
+                    break;
+                }
+            }
         }
-        return "#  Random Language Mod config\n# ============================\nnative-language=en_us\n# In above option you can choose from:" + allLanguagesString;
     }
 
-    public void setSimpleConfig() {
-        simpleConfig = SimpleConfig.of("random-language-mod").provider(this::defaultConfigProvider).request();
-        nativeLanguage = simpleConfig.getOrDefault("native-language","en_us");
-    }
+    public void setConfig() { // Creates a new config if it's not found and then reads it
+        try{
+            configFile = FabricLoader.getInstance().getConfigDir().resolve("random-language-mod.json").toFile();
 
-    public static RandomLanguageModClient getInstance() {
-        return instance;
+            if(!(configFile.exists() && configFile.isFile())){
+                configFile.delete();
+                configFile.getParentFile().mkdirs();
+                configFile.createNewFile();
+
+                fileWriter=new FileWriter(configFile);
+
+                allLanguagesString="";
+                for(String languageCode : minecraftClient.getLanguageManager().getAllLanguages().keySet()){
+                    allLanguagesString += languageCode + ", ";
+                }
+                allLanguagesString=allLanguagesString.substring(0, allLanguagesString.length()-2);
+
+                fileWriter.write("{\n  \"native_language\": \"en_us\",\n  \"native_language_comment\": \"Available options: "+allLanguagesString+"\"\n}");
+                fileWriter.close();
+            }
+
+            fileReader=new FileReader(configFile);
+            config = gson.fromJson(fileReader, JsonConfig.class);
+            fileReader.close();
+        }
+        catch(Exception e)
+        {
+            crashReport = minecraftClient.addDetailsToCrashReport(new CrashReport("Unexpected error", e));
+            LogUtils.getLogger().error(LogUtils.FATAL_MARKER, "Unreported exception thrown!", e);
+            minecraftClient.cleanUpAfterCrash();
+            minecraftClient.printCrashReport(crashReport);
+        }
     }
 
     @Override
@@ -67,8 +100,11 @@ public class RandomLanguageModClient implements ClientModInitializer {
         instance = this;
 
         random = new Random();
+        gson = new Gson();
 
         minecraftClient = MinecraftClient.getInstance();
+
+        new SetConfigThread().start();
 
         randomLanguageKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             "random-language-mod.key.random",
@@ -83,10 +119,8 @@ public class RandomLanguageModClient implements ClientModInitializer {
             "random-language-mod.key.category"
         ));
 
-        new setSimpleConfigThread().start();
-
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(randomLanguageKeybind.wasPressed()) {
+            if(randomLanguageKeybind.wasPressed()) { // Randomizes the language
                 languageManager = minecraftClient.getLanguageManager();
                 allLanguages = languageManager.getAllLanguages().entrySet().toArray();
                 choosenLanguage = random.nextInt(allLanguages.length);
@@ -95,11 +129,11 @@ public class RandomLanguageModClient implements ClientModInitializer {
                 languageManager.setLanguage(((Map.Entry<String,LanguageDefinition>) allLanguages[choosenLanguage]).getKey());
                 languageManager.reload(minecraftClient.getResourceManager());
             }
-            if(returnToNativeKeybind.wasPressed()) {
+            if(returnToNativeKeybind.wasPressed()) { // Returns to native language
                 languageManager = minecraftClient.getLanguageManager();
-                language = languageManager.getLanguage(nativeLanguage);
+                language = languageManager.getLanguage(config.native_language);
                 client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: " + language.name() + " (" + language.region() + ")"),true);
-                languageManager.setLanguage(nativeLanguage);
+                languageManager.setLanguage(config.native_language);
                 languageManager.reload(minecraftClient.getResourceManager());
             }
         });
