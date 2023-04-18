@@ -1,37 +1,43 @@
 {
-  "schemaVersion": 1,
-  "id": "random-language-mod",
-  "version": "1.2.0",
+    "schemaVersion": 1,
 
-  "name": "Random Language Mod",
-  "description": "This minecraft fabric mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another key.",
-  "authors": [
-    "Blay"
-  ],
-  "contact":{
-    "homepage":"https://modrinth.com/mod/random-language-mod",
-    "email":"gpewojan1@gmail.com",
-    "issues":"https://github.com/Blayung/random-language-mod/issues",
-    "sources":"https://github.com/Blayung/random-language-mod"
-  },
-  "icon": "assets/random-language-mod/icon.png",
-  "license": "GPL-3.0-only",
+    "id": "random-language-mod",
+    "version": "1.2.1",
+    "name": "Random Language Mod",
+    "description": "This minecraft fabric mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another key.",
+    "icon": "assets/random-language-mod/icon.png",
+    "license": "GPL-3.0-only",
 
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "com.blay.randomlanguagemod.RandomLanguageModMain"
+    "authors": [
+        "Blay"
     ],
-    "client":[
-      "com.blay.randomlanguagemod.RandomLanguageModClient"
-    ]
-  },
-  "mixins": [],
+    "contributors":[],
 
-  "depends": {
-    "fabricloader": "*",
-    "fabric": "*",
-    "minecraft": "*",
-    "java": ">=17"
-  }
+    "contact": {
+        "homepage":"https://modrinth.com/mod/random-language-mod",
+        "sources":"https://github.com/Blayung/random-language-mod",
+        "issues":"https://github.com/Blayung/random-language-mod/issues",
+        "email":"gpewojan1@gmail.com"
+    },
+    "custom": {
+        "modmenu": {
+            "links": {
+                "modmenu.modrinth": "https://modrinth.com/mod/random-language-mod"
+            }
+        }
+    },
+
+    "environment": "client",
+    "entrypoints": {
+        "client":[
+            "com.blay.randomlanguagemod.RandomLanguageModClient"
+        ]
+    },
+
+    "depends": {
+        "fabricloader": "*",
+        "fabric": "*",
+        "minecraft": "*",
+        "java": ">=17"
+    }
 }
