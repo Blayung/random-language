@@ -20,4 +20,4 @@ You can download this mod on modrinth. [https://modrinth.com/mod/random-language
 ## How to compile this mod?
 1. Clone the repo: `git clone https://github.com/Blayung/random-language-mod.git; cd random-language-mod`
 2. Compile the mod: `./gradlew build`
-3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.2.1.jar`
+3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.2.2.jar`

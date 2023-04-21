@@ -2,7 +2,7 @@
     "schemaVersion": 1,
 
     "id": "random-language-mod",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "name": "Random Language Mod",
     "description": "This minecraft fabric mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another key.",
     "icon": "assets/random-language-mod/icon.png",
@@ -36,7 +36,7 @@
 
     "depends": {
         "fabricloader": "*",
-        "fabric": "*",
+        "fabric-api": "*",
         "minecraft": "*",
         "java": ">=17"
     }
