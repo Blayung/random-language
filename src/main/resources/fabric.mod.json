@@ -14,10 +14,10 @@
     "contributors":[],
 
     "contact": {
-        "homepage":"https://modrinth.com/mod/random-language-mod",
-        "sources":"https://github.com/Blayung/random-language-mod",
-        "issues":"https://github.com/Blayung/random-language-mod/issues",
-        "email":"gpewojan1@gmail.com"
+        "homepage": "https://modrinth.com/mod/random-language-mod",
+        "sources": "https://github.com/Blayung/random-language-mod",
+        "issues": "https://github.com/Blayung/random-language-mod/issues",
+        "email": "gpewojan1@gmail.com"
     },
     "custom": {
         "modmenu": {
@@ -29,7 +29,7 @@
 
     "environment": "client",
     "entrypoints": {
-        "client":[
+        "client": [
             "com.blay.randomlanguagemod.RandomLanguageModClient"
         ]
     },

@@ -1,5 +1,5 @@
 plugins {
-	id "fabric-loom" version "1.1-SNAPSHOT"
+	id "fabric-loom" version "1.2-SNAPSHOT"
 }
 
 dependencies {
@@ -11,15 +11,22 @@ dependencies {
     implementation "com.google.code.gson:gson:2.10.1"
 }
 
-archivesBaseName = "random-language-mod-1.2.3"
+base {
+    archivesName = "random-language-mod-1.2.3"
+}
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+jar {
+    from("LICENSE")
+}
+
+def javaVersion=JavaVersion.VERSION_17
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
+	it.options.release = javaVersion.toString() as Integer
 }
 
 java {
 	withSourcesJar()
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
 }
