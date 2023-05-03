@@ -11,13 +11,9 @@ dependencies {
     implementation "com.google.code.gson:gson:2.10.1"
 }
 
-base {
-    archivesName = "random-language-mod-1.2.3"
-}
+base.archivesName = "random-language-mod-1.2.3"
 
-jar {
-    from("LICENSE")
-}
+jar.from("LICENSE")
 
 def javaVersion=JavaVersion.VERSION_17
 
