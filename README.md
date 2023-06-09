@@ -1,6 +1,6 @@
 [![fabric api badge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/requires/fabric-api_vector.svg)](https://modrinth.com/mod/fabric-api) [![modrinth badge](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/mod/random-language-mod)  
   
-![**This mod currently supports the 1.19.4 version of minecraft.**](https://img.shields.io/static/v1?label=SUPPORTED%20MINECRAFT%20VERSIONS&message=1.19.4&color=yellowgreen&style=for-the-badge)  
+![**This mod currently supports the 1.19.4 and 1.20 versions of minecraft.**](https://img.shields.io/static/v1?label=SUPPORTED%20MINECRAFT%20VERSIONS&message=1.19.4%20|%201.20&color=yellowgreen&style=for-the-badge)  
 For older versions you can try to use the older releases.
 # Random Language Mod
 
@@ -21,4 +21,4 @@ You can download this mod on modrinth. [https://modrinth.com/mod/random-language
 0. Make sure you have jdk 17 and git installed. If not, check these links out: [https://git-scm.com/downloads](https://git-scm.com/downloads), [https://www.oracle.com/pl/java/technologies/downloads/#java17](https://www.oracle.com/pl/java/technologies/downloads/#java17)
 1. Clone the repo: `git clone https://github.com/Blayung/random-language-mod.git; cd random-language-mod`
 2. Compile the mod: `./gradlew build`
-3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.2.3.jar`
+3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.2.4.jar`
