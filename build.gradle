@@ -4,14 +4,14 @@ plugins {
 
 dependencies {
 	minecraft "com.mojang:minecraft:1.20.1"
-	mappings "net.fabricmc:yarn:1.20.1+build.2:v2"
+	mappings "net.fabricmc:yarn:1.20.1+build.9:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.14.21"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.83.1+1.20.1"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.85.0+1.20.1"
     implementation "com.google.code.gson:gson:2.10.1"
 }
 
-base.archivesName = "random-language-mod-1.2.5"
+base.archivesName = "random-language-mod-1.2.6"
 
 jar.from("LICENSE")
 

@@ -21,4 +21,4 @@ You can download this mod on modrinth. [https://modrinth.com/mod/random-language
 0. Make sure you have jdk 17 and git installed. If not, check these links out: [https://git-scm.com/downloads](https://git-scm.com/downloads), [https://www.oracle.com/pl/java/technologies/downloads/#java17](https://www.oracle.com/pl/java/technologies/downloads/#java17)
 1. Clone the repo: `git clone https://github.com/Blayung/random-language-mod.git; cd random-language-mod`
 2. Compile the mod: `./gradlew build`
-3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.2.5.jar`
+3. Now the mod jar file should be here: `./build/libs/random-language-mod-1.2.6.jar`

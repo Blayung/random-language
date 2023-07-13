@@ -24,13 +24,13 @@ import java.io.FileReader;
 import java.util.Random;
 import java.util.Map;
 
-public class RandomLanguageModClient implements ClientModInitializer {
+public class Main implements ClientModInitializer {
     private Random random;
-    private JsonConfig config;
+    private Config config;
     public KeyBinding randomLanguageKeybind;
     public KeyBinding returnToNativeKeybind;
 
-    private class JsonConfig{
+    private class Config {
         public String native_language="en_us";
     }
 
@@ -59,13 +59,13 @@ public class RandomLanguageModClient implements ClientModInitializer {
                         }
 
                         FileReader fileReader=new FileReader(configFile);
-                        config = new Gson().fromJson(fileReader, JsonConfig.class);
+                        config = new Gson().fromJson(fileReader, Config.class);
                         fileReader.close();
                     }
                     catch(Exception e)
                     {
                         CrashReport crashReport = MinecraftClient.getInstance().addDetailsToCrashReport(new CrashReport("Random language mod config error", e));
-                        LogUtils.getLogger().error(LogUtils.FATAL_MARKER, "Unreported exception thrown!", e);
+                        LogUtils.getLogger().error(LogUtils.FATAL_MARKER, "Exception thrown!", e);
                         MinecraftClient.getInstance().cleanUpAfterCrash();
                         MinecraftClient.getInstance().printCrashReport(crashReport);
                     }
@@ -82,17 +82,17 @@ public class RandomLanguageModClient implements ClientModInitializer {
         new SetConfigThread().start();
 
         randomLanguageKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "random-language-mod.key.random",
+            "Randomize Your Language",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_COMMA,
-            "random-language-mod.key.category"
+            "Random Language Mod"
         ));
 
         returnToNativeKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-            "random-language-mod.key.native",
+            "Return To Native",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_PERIOD,
-            "random-language-mod.key.category"
+            "Random Language Mod"
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
@@ -101,7 +101,7 @@ public class RandomLanguageModClient implements ClientModInitializer {
                 Object[] allLanguages = languageManager.getAllLanguages().entrySet().toArray();
                 int choosenLanguage = random.nextInt(allLanguages.length);
                 LanguageDefinition language = ((Map.Entry<String,LanguageDefinition>) allLanguages[choosenLanguage]).getValue();
-                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: " + language.name() + " (" + language.region() + ")"),true);
+                client.player.sendMessage(Text.literal("[Random Language Mod] Changing the language to: " + language.name() + " (" + language.region() + ")"),true);
                 languageManager.setLanguage(((Map.Entry<String,LanguageDefinition>) allLanguages[choosenLanguage]).getKey());
                 languageManager.reload(MinecraftClient.getInstance().getResourceManager());
             }
@@ -109,7 +109,7 @@ public class RandomLanguageModClient implements ClientModInitializer {
             if(returnToNativeKeybind.wasPressed()) {
                 LanguageManager languageManager = MinecraftClient.getInstance().getLanguageManager();
                 LanguageDefinition language = languageManager.getLanguage(config.native_language);
-                client.player.sendMessage(Text.literal("[Random Language Mod] Changing language to: " + language.name() + " (" + language.region() + ")"),true);
+                client.player.sendMessage(Text.literal("[Random Language Mod] Changing the language to: " + language.name() + " (" + language.region() + ")"),true);
                 languageManager.setLanguage(config.native_language);
                 languageManager.reload(MinecraftClient.getInstance().getResourceManager());
             }
