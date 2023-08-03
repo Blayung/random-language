@@ -1,28 +1,27 @@
 {
     "schemaVersion": 1,
 
-    "id": "random-language-mod",
-    "version": "1.2.6",
-    "name": "Random Language Mod",
-    "description": "This minecraft fabric mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another key.",
-    "icon": "assets/random-language-mod/icon.png",
+    "id": "randomized-language",
+    "version": "1.2.7",
+    "name": "Randomized Language",
+    "description": "This mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another keybind.",
+    "icon": "assets/randomized-language/icon.png",
     "license": "GPL-3.0-only",
 
     "authors": [
         "Blay"
     ],
-    "contributors": [],
 
     "contact": {
-        "homepage": "https://modrinth.com/mod/random-language-mod",
-        "sources": "https://github.com/Blayung/random-language-mod",
-        "issues": "https://github.com/Blayung/random-language-mod/issues",
+        "homepage": "https://modrinth.com/mod/randomized-language",
+        "sources": "https://github.com/Blayung/randomized-language-mod",
+        "issues": "https://github.com/Blayung/randomized-language-mod/issues",
         "email": "gpewojan1@gmail.com"
     },
     "custom": {
         "modmenu": {
             "links": {
-                "modmenu.modrinth": "https://modrinth.com/mod/random-language-mod"
+                "modmenu.modrinth": "https://modrinth.com/mod/randomized-language"
             }
         }
     },
@@ -30,7 +29,7 @@
     "environment": "client",
     "entrypoints": {
         "client": [
-            "com.blay.randomlanguagemod.Main"
+            "com.blay.randomizedlanguage.Main"
         ]
     },
 
