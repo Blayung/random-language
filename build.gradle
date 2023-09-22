@@ -3,13 +3,13 @@ plugins {
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.20.1"
-	mappings "net.fabricmc:yarn:1.20.1+build.10:v2"
+	minecraft "com.mojang:minecraft:1.20.2"
+	mappings "net.fabricmc:yarn:1.20.2+build.1:v2"
 	modImplementation "net.fabricmc:fabric-loader:0.14.22"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.88.1+1.20.1"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:0.89.1+1.20.2"
 }
 
-base.archivesName = "randomized-language-1.2.8"
+base.archivesName = "randomized-language-1.2.9"
 
 jar.from("LICENSE")
 
