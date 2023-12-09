@@ -44,7 +44,7 @@ public class RandomizedLanguage implements ClientModInitializer {
             if (randomLanguageKeybind.wasPressed()) {
                 LanguageManager languageManager = client.getLanguageManager();
                 Object[] allLanguages = languageManager.getAllLanguages().entrySet().toArray();
-                Map.Entry<String,LanguageDefinition> language = (Map.Entry<String,LanguageDefinition>) allLanguages[random.nextInt(allLanguages.length)];
+                Map.Entry<String, LanguageDefinition> language = (Map.Entry<String, LanguageDefinition>) allLanguages[random.nextInt(allLanguages.length)];
                 client.player.sendMessage(Text.literal("[Randomized Language] Changing the language to: ").append(language.getValue().getDisplayText()), true);
                 languageManager.setLanguage(language.getKey());
                 languageManager.reload(client.getResourceManager());
