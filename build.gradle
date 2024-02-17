@@ -10,7 +10,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:0.95.4+1.20.4"
 }
 
-base.archivesName = "randomized-language-1.2.11"
+base.archivesName = "randomized-language-1.2.12"
 
 def javaVersion = JavaVersion.VERSION_17
 
@@ -19,7 +19,7 @@ java {
     targetCompatibility = javaVersion
 }
 
-jar.from("LICENSE")
+jar.from("LICENSE.txt")
 
 modrinth {
     token = System.getenv("MINOTAUR_PAT")
@@ -27,11 +27,16 @@ modrinth {
     uploadFile = remapJar
     projectId = "randomized-language"
     changelog = rootProject.file("MODRINTH_CHANGELOG.md").text
-    versionName = "Randomized Language 1.2.11"
-    versionNumber = "1.2.11"
+    versionName = "Randomized Language 1.2.12"
+    versionNumber = "1.2.12"
     gameVersions = ["1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4"]
     loaders = ["fabric", "quilt"]
     dependencies {
         required.project "fabric-api"
     }
+}
+
+task modrinthUpload {
+    dependsOn 'modrinth'
+    dependsOn 'modrinthSyncBody'
 }

@@ -2,7 +2,7 @@
     "schemaVersion": 1,
 
     "id": "randomized-language",
-    "version": "1.2.11",
+    "version": "1.2.12",
     "name": "Randomized Language",
     "description": "This mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another keybind.",
     "icon": "assets/randomized-language/icon.png",

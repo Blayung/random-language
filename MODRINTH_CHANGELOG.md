@@ -1,1 +1,1 @@
-- Refreshed the building scripts (the jar has changed for some reason though)
+- Changed the license file name (`LICENSE` -> `LICENSE.txt`)
