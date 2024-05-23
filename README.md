@@ -2,8 +2,8 @@
 
 # Randomized Language
 
-## What is this mod?
-This minecraft fabric mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another keybind.  
+## What is this?
+This is a minecraft fabric mod that allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing another keybind.  
   
 **This mod currently supports all minecraft versions from 1.19.4 to 1.20.6.**  
 For older versions you can try to use the older releases.
