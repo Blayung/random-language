@@ -1,1 +1,1 @@
-- Updated to 1.21
+- Updated the mod's metadata (I've changed my primary email address)
