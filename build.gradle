@@ -24,9 +24,8 @@ java {
 jar.from("LICENSE.txt")
 
 processResources {
-	inputs.property("modVersion", modVersion)
 	filesMatching("fabric.mod.json") {
-		expand "modVersion": modVersion
+		expand "version": modVersion
 	}
 }
 
