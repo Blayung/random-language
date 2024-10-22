@@ -3,13 +3,14 @@
 
     "id": "randomized-language",
     "version": "${version}",
+
     "name": "Randomized Language",
     "description": "This mod allows you to randomize your game's language with just a single press of a key. You can also always return to your native language by pressing an another keybind.",
     "icon": "assets/randomized-language/icon.png",
-    "license": "GPL-3.0-only",
 
+    "license": "GPL-3.0-only",
     "authors": [
-        "Wojciech Paruch <teamaster69@proton.me>"
+        "Wojciech Paruch"
     ],
 
     "contact": {
@@ -17,13 +18,6 @@
         "sources": "https://github.com/Blayung/randomized-language-mod",
         "issues": "https://github.com/Blayung/randomized-language-mod/issues",
         "email": "teamaster69@proton.me"
-    },
-    "custom": {
-        "modmenu": {
-            "links": {
-                "modmenu.modrinth": "https://modrinth.com/mod/randomized-language"
-            }
-        }
     },
 
     "environment": "client",

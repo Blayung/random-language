@@ -1,1 +1,0 @@
-- Updated the mod's metadata (I've changed my primary email address)
