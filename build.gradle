@@ -38,7 +38,7 @@ modrinth {
     versionName = "Randomized Language " + modVersion
     versionNumber = modVersion
     gameVersions = ["1.19.4", "1.20", "1.20.1", "1.20.2", "1.20.3", "1.20.4", "1.20.5", "1.20.6", "1.21", "1.21.1", "1.21.2"]
-    loaders = ["fabric", "quilt"]
+    loaders = ["fabric"]
     dependencies {
         required.project "fabric-api"
     }
