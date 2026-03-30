@@ -1,2 +1,1 @@
-- Updated to 1.21.9
-- Rebranded to an even shorter name
+- Updated to 26.1

@@ -2,48 +2,49 @@ package me.teamaster.randomlang;
 
 import net.fabricmc.api.ClientModInitializer;
 
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.util.Identifier;
-import net.minecraft.client.resource.language.LanguageManager;
-import net.minecraft.client.resource.language.LanguageDefinition;
-import net.minecraft.text.Text;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
+import net.minecraft.client.resources.language.LanguageManager;
+import net.minecraft.client.resources.language.LanguageInfo;
+import net.minecraft.network.chat.Component;
 
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Random;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class RandomLang implements ClientModInitializer {
-    private Random random;
+    private final Random random = new Random();
 
-    private KeyBinding randomLanguageKeybind;
-    private KeyBinding returnToNativeKeybind;
+    private KeyMapping randomLanguageKeymapping;
+    private KeyMapping returnToNativeKeymapping;
 
+    @Override
     public void onInitializeClient() {
-        random = new Random();
+        KeyMapping.Category keyMappingCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("randomlang", "main"));
 
-        KeyBinding.Category keyBindingCategory = KeyBinding.Category.create(Identifier.of("randomlang:main"));
-        randomLanguageKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Randomize Your Language", GLFW.GLFW_KEY_COMMA, keyBindingCategory));
-        returnToNativeKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding("Return To Native", GLFW.GLFW_KEY_PERIOD, keyBindingCategory));
+        this.randomLanguageKeymapping = KeyMappingHelper.registerKeyMapping(new KeyMapping("Randomize Your Language", GLFW.GLFW_KEY_COMMA, keyMappingCategory));
+        this.returnToNativeKeymapping = KeyMappingHelper.registerKeyMapping(new KeyMapping("Return To Native", GLFW.GLFW_KEY_PERIOD, keyMappingCategory));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (randomLanguageKeybind.wasPressed()) {
+            if (this.randomLanguageKeymapping.consumeClick()) {
                 LanguageManager languageManager = client.getLanguageManager();
-                Object[] allLanguages = languageManager.getAllLanguages().entrySet().toArray();
-                Map.Entry<String, LanguageDefinition> language = (Map.Entry<String, LanguageDefinition>) allLanguages[random.nextInt(allLanguages.length)];
-                client.player.sendMessage(Text.literal("[Random Language] Changing the language to: ").append(language.getValue().getDisplayText()), true);
-                languageManager.setLanguage(language.getKey());
-                languageManager.reload(client.getResourceManager());
+                ArrayList<Map.Entry<String, LanguageInfo>> languages = new ArrayList<>(languageManager.getLanguages().entrySet());
+                Map.Entry<String, LanguageInfo> language = languages.get(this.random.nextInt(languages.size()));
+                client.player.sendOverlayMessage(Component.literal("[Random Language] Changing the language to: ").append(language.getValue().toComponent()));
+                languageManager.setSelected(language.getKey());
+                languageManager.onResourceManagerReload(client.getResourceManager());
             }
 
-            if (returnToNativeKeybind.wasPressed()) {
+            if (this.returnToNativeKeymapping.consumeClick()) {
                 LanguageManager languageManager = client.getLanguageManager();
-                client.player.sendMessage(Text.literal("[Random Language] Changing the language to: ").append(languageManager.getLanguage(client.options.language).getDisplayText()), true);
-                languageManager.setLanguage(client.options.language);
-                languageManager.reload(client.getResourceManager());
+                client.player.sendOverlayMessage(Component.literal("[Random Language] Changing the language to: ").append(languageManager.getLanguage(client.options.languageCode).toComponent()));
+                languageManager.setSelected(client.options.languageCode);
+                languageManager.onResourceManagerReload(client.getResourceManager());
             }
         });
     }

@@ -1,24 +1,27 @@
 plugins {
-	id "fabric-loom" version "1.11-SNAPSHOT"
+    id "net.fabricmc.fabric-loom" version "1.15-SNAPSHOT"
     id "com.modrinth.minotaur" version "2.+"
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:1.21.9"
-	mappings "net.fabricmc:yarn:1.21.9+build.1:v2"
-	modImplementation "net.fabricmc:fabric-loader:0.17.2"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.133.14+1.21.9"
+	minecraft "com.mojang:minecraft:26.1"
+    implementation "net.fabricmc:fabric-loader:0.18.5"
+    implementation "net.fabricmc.fabric-api:fabric-api:0.144.3+26.1"
 }
 
-def modVersion = "1.4.0"
+def modVersion = "1.5.0"
 
 base.archivesName = "random-language-" + modVersion
 
-def javaVersion = JavaVersion.VERSION_17
+def javaVersion = JavaVersion.VERSION_25
 
 java {
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = javaVersion.majorVersion.toInteger()
 }
 
 jar.from("LICENSE.txt")
@@ -32,12 +35,12 @@ processResources {
 modrinth {
     token = System.getenv("MINOTAUR_PAT")
     syncBodyFrom = rootProject.file("modrinth/readme.md").text
-    uploadFile = remapJar
+    uploadFile = jar
     projectId = "random-language"
     changelog = rootProject.file("modrinth/changelog.md").text
     versionName = "Random Language " + modVersion
     versionNumber = modVersion
-    gameVersions = ["1.21.9"]
+    gameVersions = ["26.1"]
     loaders = ["fabric"]
     dependencies {
         required.project "fabric-api"
