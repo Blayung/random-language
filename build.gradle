@@ -1,15 +1,15 @@
 plugins {
-    id "net.fabricmc.fabric-loom" version "1.15-SNAPSHOT"
+    id "net.fabricmc.fabric-loom" version "1.18-SNAPSHOT"
     id "com.modrinth.minotaur" version "2.+"
 }
 
 dependencies {
-	minecraft "com.mojang:minecraft:26.1"
-    implementation "net.fabricmc:fabric-loader:0.18.5"
-    implementation "net.fabricmc.fabric-api:fabric-api:0.144.3+26.1"
+	minecraft "com.mojang:minecraft:26.3"
+    implementation "net.fabricmc:fabric-loader:0.19.5"
+    implementation "net.fabricmc.fabric-api:fabric-api:0.162.0+26.3"
 }
 
-def modVersion = "1.5.0"
+def modVersion = "1.5.1"
 
 base.archivesName = "random-language-" + modVersion
 
@@ -40,7 +40,7 @@ modrinth {
     changelog = rootProject.file("modrinth/changelog.md").text
     versionName = "Random Language " + modVersion
     versionNumber = modVersion
-    gameVersions = ["26.1"]
+    gameVersions = ["26.3"]
     loaders = ["fabric"]
     dependencies {
         required.project "fabric-api"

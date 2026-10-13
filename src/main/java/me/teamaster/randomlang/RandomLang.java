@@ -11,7 +11,7 @@ import net.minecraft.client.resources.language.LanguageManager;
 import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.network.chat.Component;
 
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 import java.util.Random;
 import java.util.ArrayList;
@@ -27,8 +27,8 @@ public class RandomLang implements ClientModInitializer {
     public void onInitializeClient() {
         KeyMapping.Category keyMappingCategory = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("randomlang", "main"));
 
-        this.randomLanguageKeymapping = KeyMappingHelper.registerKeyMapping(new KeyMapping("Randomize Your Language", GLFW.GLFW_KEY_COMMA, keyMappingCategory));
-        this.returnToNativeKeymapping = KeyMappingHelper.registerKeyMapping(new KeyMapping("Return To Native", GLFW.GLFW_KEY_PERIOD, keyMappingCategory));
+        this.randomLanguageKeymapping = KeyMappingHelper.registerKeyMapping(new KeyMapping("Randomize Your Language", InputConstants.Type.KEYBOARD, InputConstants.KEY_COMMA, keyMappingCategory));
+        this.returnToNativeKeymapping = KeyMappingHelper.registerKeyMapping(new KeyMapping("Return To Native", InputConstants.Type.KEYBOARD, InputConstants.KEY_PERIOD, keyMappingCategory));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (this.randomLanguageKeymapping.consumeClick()) {
